@@ -1,0 +1,25 @@
+@import '~iview/src/styles/index.less';
+
+@menu-dark-title: #2f4050;
+@menu-dark-active-bg: #293846;
+@layout-sider-background: #2f4050;
+
+.side-menu-wrapper {
+
+  .ivu-menu-vertical .ivu-menu-item,.ivu-menu-vertical .ivu-menu-submenu-title {
+    padding: 10px 24px;
+  }
+
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened {
+    border-left: 4px solid #19aa8d;
+  }
+
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {
+    background: #293846;
+  }
+
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
+    border-right: 5px solid #1fbec9;
+    background: none !important;
+  }
+}
