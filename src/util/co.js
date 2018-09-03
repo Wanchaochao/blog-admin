@@ -17,10 +17,10 @@ export class Processer {
     let loading = me._isUseLoading ? Message.loading({content: 'Loading...', duration: 0}) : null
     co(function* () {
       yield fn()
-      me._isUseLoading && setTimeout(loading, 500)
+      me._isUseLoading && loading()
     }).catch(e => {
       //e.stack && console.log(e.stack) ||  e.info && e.info.stack && console.log(e.info.stack)
-      me._isUseLoading && setTimeout(loading, 500)
+      me._isUseLoading && loading()
       co(function* () {
         if (me._errHandler) {
           yield me._errHandler(e)

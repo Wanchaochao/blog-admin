@@ -1,14 +1,12 @@
 import co from 'co'
-import {loginApi } from '../../service'
-import {setToken} from '../../libs/util'
+import {loginApi} from '../../service'
+// import {setToken} from '../../libs/util'
 import {StorageModel} from '../../model'
 
 export default {
   namespaced: true,
   state: {
-    userInfo: {
-
-    }
+    userInfo: {}
   },
   mutations: {
     setUserInfo (state, userInfo) {
@@ -18,10 +16,15 @@ export default {
   actions: {
     // 登录
     handleLogin (store, data) {
+      return co(function* () {
+        let resp = yield loginApi(data)
+        StorageModel.setUser(resp.data)
+        return resp.userInfo
+      })
+    },
+    handleLogOut () {
       return co(function *() {
-        let userInfo = yield loginApi(data)
-        StorageModel.setUser(userInfo)
-        return userInfo
+        StorageModel.setUser({})
       })
     }
 

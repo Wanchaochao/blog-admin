@@ -19,6 +19,7 @@
 import LoginForm from '_c/login-form'
 import {mapActions} from 'vuex'
 import {Process} from '../../util'
+import {Response} from '../../model'
 
 export default {
   components: {
@@ -28,9 +29,14 @@ export default {
     ...mapActions('user', ['handleLogin']),
     handleSubmit ({userName, password}) {
       let me = this
-      Process(function *() {
-        yield me.handleLogin({userName, password})
-        me.$router.push({path: '/'})
+      Process(function* () {
+        try {
+          yield me.handleLogin({name: userName, password})
+          return me.$router.push({path: '/'})
+        } catch (e) {
+          e = Response.instance(e)
+          return me.$Message.error(e.msg)
+        }
       })
     }
   }

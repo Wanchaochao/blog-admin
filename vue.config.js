@@ -21,6 +21,24 @@ const BASE_URL = process.env.NODE_ENV === 'production'
   : '/'
 
 module.exports = {
+  devServer: {
+    proxy: {
+      '/api': { // 使用"/api"来代替"http://localhost:8081/"
+        target: 'http://localhost:8081/', // 源地址
+        changeOrigin: true, // 改变源
+        pathRewrite: {
+          '^/api': '/' // 路径重写
+        }
+      }
+      // '/admapi': {
+      //     target: 'http://localhost:8081/', //源地址
+      //     changeOrigin: true, //改变源
+      //     // pathRewrite: {
+      //     //     '^/admin': "/" //路径重写
+      //     // }
+      // }
+    }
+  },
   // Project deployment base
   // By default we assume your app will be deployed at the root of a domain,
   // e.g. https://www.my-app.com/

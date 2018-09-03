@@ -2,7 +2,7 @@
     <Layout style="height: 100%" class="main">
         <Header class="header-con">
             <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
-                <user :user-avator="userAvator"/>
+                <user/>
                 <language @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
             </header-bar>
         </Header>
@@ -32,7 +32,7 @@ import SideMenu from './components/side-menu'
 import HeaderBar from './components/header-bar'
 import User from './components/user'
 import Language from './components/language'
-import {mapMutations, mapActions} from 'vuex'
+import {mapMutations, mapActions, mapState} from 'vuex'
 import {getNewTagList, getNextRoute, routeEqual} from '@/libs/util'
 import './main.less'
 
@@ -47,17 +47,17 @@ export default {
   },
   data () {
     return {
+      collapsed: false
     }
   },
   computed: {
+    // ...mapState('app',['tagNavList','tagRouter','cacheList','menuList']),
+    ...mapState('user', ['userInfo']),
     tagNavList () {
       return this.$store.state.app.tagNavList
     },
     tagRouter () {
       return this.$store.state.app.tagRouter
-    },
-    userAvator () {
-      return this.$store.state.user.avatorImgPath
     },
     cacheList () {
       return this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []

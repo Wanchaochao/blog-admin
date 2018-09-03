@@ -2,11 +2,16 @@ import axios from 'axios'
 import {Response} from '../model'
 import mock from '../mock'
 import {ConfigModel} from '../model/Config'
+import {StorageModel} from '@/model/storage'
+import url from '../../config/url'
+
+axios.defaults.baseURL = url // api基础路径
+// axios.defaults.baseURL = '/api' // api基础路径
 
 const request = (param) => {
   param = {
     ...param,
-    method: 'post'
+    method: param.method
   }
   return new Promise((resolve, reject) => {
     if (ConfigModel.env === 'mock') {
@@ -16,19 +21,27 @@ const request = (param) => {
       return
     }
 
+    // 如果state中存有token,那么每次请求都应该将token放入请求头
+    let token = StorageModel.getUser().token
+    if (token) {
+      param.headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'Access-Token': StorageModel.getUser().token
+      }
+    }
     axios(param).then(v => {
-      const m = Response.instance(v.data)
-      // console.log("v.data" , v.data , m.isOK())
-      // if (m.notLogin()) {
-      //   m.redirect('login')
+      const response = Response.instance(v.data)
+      // console.log("v.data" , v.data , response.isOk())
+      // if (response.notLogin()) {
+      //   response.redirect('login')
       // }
-      if (m.isOk()) {
+      if (response.isOk()) {
         resolve(v.data)
       } else {
-        reject(m)
+        reject(response)
       }
     }).catch(e => {
-      // console.log("catch" , JSON.stringify(e))
+      console.log('catch', JSON.stringify(e))
       reject(e)
     })
   })
@@ -36,7 +49,33 @@ const request = (param) => {
 
 export const loginApi = (data) => {
   return request({
-    url: '/admin/login',
-    data: data
+    url: '/api/login',
+    data: data,
+    method: 'post'
+
+  })
+}
+
+export const getArticles = (data) => {
+  return request({
+    url: '/api/adm/articleList',
+    data: data,
+    method: 'get'
+  })
+}
+
+export const storeArticle = (data) => {
+  return request({
+    url: '/api/adm/storeArticle',
+    data: data,
+    method: 'post'
+  })
+}
+
+export const getCategories = (data) => {
+  return request({
+    url: '/api/adm/getCategories',
+    data: data,
+    method: 'post'
   })
 }

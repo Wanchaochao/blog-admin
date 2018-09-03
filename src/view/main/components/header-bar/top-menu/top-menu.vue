@@ -3,7 +3,7 @@
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
         <div class="logo-con" style="float: left">
             <img v-show="!collapsed" :src="maxLogo" key="max-logo"/>
-            <img v-show="collapsed" :src="minLogo" key="min-logo"/> <span> - 运营管理后台</span>
+            <img v-show="collapsed" :src="minLogo" key="min-logo"/>
         </div>
         <div style="float: left">
             <slot name="left"></slot>
@@ -39,8 +39,8 @@
     </Menu>
 </template>
 <script>
-import minLogo from '@/assets/images/logo-min.png'
-import maxLogo from '@/assets/images/logo.png'
+import minLogo from '@/assets/images/LittleBug.jpeg'
+import maxLogo from '@/assets/images/LittleBug.jpeg'
 import './top-menu.less'
 import {mapState} from 'vuex'
 

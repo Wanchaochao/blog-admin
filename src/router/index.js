@@ -13,7 +13,7 @@ const LOGIN_PAGE_NAME = 'login'
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
-  let token = StorageModel.getUser() ? StorageModel.getUser().access_token : false
+  let token = StorageModel.getUser() ? StorageModel.getUser().token : false
   // token =123
   if (!token && to.name !== LOGIN_PAGE_NAME) {
     // 未登录且要跳转的页面不是登录页
