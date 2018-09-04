@@ -60,7 +60,7 @@ export const getArticles = (data) => {
   return request({
     url: '/api/adm/articleList',
     data: data,
-    method: 'get'
+    method: 'post'
   })
 }
 

@@ -1,6 +1,5 @@
 import {getArticles, storeArticle} from '../../service'
 import co from 'co'
-import {Response} from '../../model'
 
 export default {
   namespaced: true,
@@ -9,7 +8,7 @@ export default {
   },
   mutations: {
     setArticles (state, articles) {
-      return this.state.articles = articles
+      return state.articles = articles
     }
   },
   actions: {
@@ -17,7 +16,7 @@ export default {
       return co(function* () {
         let resp = yield getArticles(data)
         let articles = resp.data
-        this.commit('setArticles', articles)
+        store.commit('setArticles', articles)
         return articles
       })
     },
@@ -26,6 +25,7 @@ export default {
         return yield storeArticle(data)
       })
     }
+
   }
 
 }

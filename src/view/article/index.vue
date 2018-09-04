@@ -25,7 +25,7 @@
                     </div>
                 </Col>
             </Row>
-            <tables  ref="tables" editable search-place="top" v-model="tableData" :columns="columns"
+            <tables ref="tables" editable search-place="top" v-model="articles" :columns="columns"
                     @on-delete="handleDelete"/>
             <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
         </Card>
@@ -34,14 +34,13 @@
 
 <script>
 import Tables from '_c/tables'
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import {Process} from '../../util'
-import {Response} from '../../model'
 
 export default {
   name: 'articleList',
   methods: {
-    ...mapActions('articles', ['getArticles']),
+    ...mapActions('articles', ['getArticles', 'articleList']),
     handleDelete: (params) => {
       console.log(params)
     },
@@ -58,13 +57,19 @@ export default {
     },
     handleSearch () {
       let me = this
-      if (me.searchValue && me.searchKey) { this.$refs.tables.handleSearch(me.searchKey, me.searchValue) }
+      if (me.searchValue && me.searchKey) {
+        this.$refs.tables.handleSearch(me.searchKey, me.searchValue)
+      }
     }
+  },
+  computed: {
+    ...mapState('articles', ['articles'])
   },
   mounted () {
     let me = this
-    Process(function *() {
-      let res = yield me.getArticles()
+    let data = {}
+    Process(function* () {
+      yield me.getArticles(data)
     })
   },
   components: {
@@ -76,8 +81,11 @@ export default {
       searchValue: '',
       columns: [
         {title: 'ID', key: 'id', sortable: true},
-        {title: 'name', key: 'name', sortable: false},
-        {title: 'created_at', key: 'created_at', sortable: false},
+        {title: 'title', key: 'title', sortable: false},
+        {title: 'author', key: 'author', sortable: false},
+        {title: 'description', key: 'description', sortable: false},
+        {title: 'created_at', key: 'created_at', sortable: true},
+        {title: 'updated_at', key: 'updated_at', sortable: true},
         {
           title: '操作',
           key: 'handle',

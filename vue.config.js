@@ -27,7 +27,7 @@ module.exports = {
         target: 'http://localhost:8081/', // 源地址
         changeOrigin: true, // 改变源
         pathRewrite: {
-          '^/api': '/' // 路径重写
+          '^/api': '' // 路径重写
         }
       }
       // '/admapi': {
