@@ -82,6 +82,7 @@ export default {
       columns: [
         {title: 'ID', key: 'id', sortable: true},
         {title: 'title', key: 'title', sortable: false},
+        {title: 'category', key: 'Category', sortable: false},
         {title: 'author', key: 'author', sortable: false},
         {title: 'description', key: 'description', sortable: false},
         {title: 'created_at', key: 'created_at', sortable: true},
