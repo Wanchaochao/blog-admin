@@ -1,6 +1,6 @@
 class Config {
-  env = ''
-  // env = 'mock'
+  // env = ''
+  env = 'mock'
 }
 
 export const ConfigModel = new Config()

@@ -210,6 +210,7 @@ export const getTableDataFromArray = (array) => {
   let columns = []
   let tableData = []
   if (array.length > 1) {
+    console.log('array :', array)
     let titles = array.shift()
     columns = titles.map(item => {
       return {
