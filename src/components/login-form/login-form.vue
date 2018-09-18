@@ -44,7 +44,7 @@ export default {
     return {
       form: {
         userName: 'littlebug',
-        password: ''
+        password: '123123213123'
       }
     }
   },
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     handleSubmit () {
-      console.log(this)
+      console.log(11111)
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           console.log(this)
@@ -68,6 +68,7 @@ export default {
           })
         }
       })
+        console.log("login end!")
     }
   }
 }

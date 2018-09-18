@@ -7,7 +7,7 @@
         <div class="login-con">
             <Card icon="log-in" title="欢迎登录" :bordered="false">
                 <div class="form-con">
-                    <login-form @on-success-valid="handleSubmit"></login-form>
+                    <login-form @on-success-valid="submitLogin"></login-form>
                     <p class="login-tip">输入任意用户名和密码即可</p>
                 </div>
             </Card>
@@ -27,7 +27,8 @@ export default {
   },
   methods: {
     ...mapActions('user', ['handleLogin']),
-    handleSubmit ({userName, password}) {
+    submitLogin ({userName, password}) {
+      console.log(userName,password)
       let me = this
       Process(function* () {
         try {
