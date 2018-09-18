@@ -15,7 +15,7 @@ class Storage {
 
   getUser () {
     let user = localStorage.getItem('__user')
-    return user ? JSON.parse(user) : {}
+    return user === true ? JSON.parse(user) : {}
   }
 }
 
