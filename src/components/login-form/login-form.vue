@@ -58,8 +58,10 @@ export default {
   },
   methods: {
     handleSubmit () {
+      console.log(this)
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
+          console.log(this)
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password
