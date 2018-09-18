@@ -6,8 +6,8 @@ import {StorageModel} from '../model'
 
 Vue.use(Router)
 const router = new Router({
-  routes
-  // mode: 'history'
+  routes,
+  mode: 'history'
 })
 const LOGIN_PAGE_NAME = 'login'
 

@@ -34,8 +34,7 @@ export default {
           yield me.handleLogin({name: userName, password})
           return me.$router.push({path: '/'})
         } catch (e) {
-          e = Response.instance(e)
-          return me.$Message.error(e.msg)
+          return me.$Message.error(Response.instance(e).msg)
         }
       })
     }

@@ -52,7 +52,6 @@ export const loginApi = (data) => {
     url: '/api/login',
     data: data,
     method: 'post'
-
   })
 }
 
