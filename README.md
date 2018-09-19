@@ -1,4 +1,4 @@
-### vue + view 后台管理系统
+### vue + iview 后台管理系统
 ##### 目前正在开发中...
 
 > A Vue.js project
