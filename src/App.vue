@@ -8,6 +8,8 @@
 export default {
   name: 'App'
 }
+
+console.log(123213123)
 </script>
 
 <style lang="less">
