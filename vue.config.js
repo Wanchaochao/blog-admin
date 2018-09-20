@@ -6,8 +6,7 @@ const resolve = dir => {
 }
 
 const env = process.env.NODE_ENV || 'development'
-fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env}'
-`)
+fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env}'`)
 
 // 项目部署基础
 // 默认情况下，我们假设你的应用将被部署在域的根目录下,
@@ -19,6 +18,7 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '/'
 
 module.exports = {
+  lintOnSave:false,
   devServer: {
     proxy: {
       '/api': { // 使用"/api"来代替"http://localhost:8081/"
@@ -54,5 +54,5 @@ module.exports = {
       .set('_conf', resolve('config'))
   },
   // 打包时不生成.map文件
-  productionSourceMap: false
+  productionSourceMap: true
 }

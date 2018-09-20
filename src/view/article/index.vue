@@ -35,7 +35,7 @@
 <script>
 import Tables from '_c/tables'
 import {mapActions, mapState} from 'vuex'
-import {Process} from '../../util'
+import {Process} from '../../util/co'
 
 export default {
   name: 'articleList',

@@ -9,7 +9,8 @@ export class Processer {
 
   static instance () {
     const p = new Processer()
-    return p.loading(true).errHandler(errHandle)
+    p.loading(true).errHandler(errHandle)
+    return p
   }
 
   co (fn) {
@@ -51,3 +52,4 @@ export class Processer {
 
 const defaultProcess = Processer.instance()
 export const Process = (fn) => defaultProcess.co(fn)
+console.log("co Process" , Process)

@@ -18,7 +18,7 @@
 <script>
 import LoginForm from '_c/login-form'
 import {mapActions} from 'vuex'
-import {Process} from '../../util'
+import {Process} from '../../util/co'
 import {Response} from '../../model'
 
 export default {
@@ -27,14 +27,17 @@ export default {
   },
   methods: {
     ...mapActions('user', ['handleLogin']),
-    submitLogin ({userName, password}) {
-      console.log(userName,password)
+    submitLogin (data) {
       let me = this
+      console.log("store data:", data , Process)
+      window['Process'] = Process
       Process(function* () {
         try {
-          yield me.handleLogin({name: userName, password})
+          yield me.handleLogin({name: data.userName, password: data.password})
+          console.log("router:")
           return me.$router.push({path: '/'})
         } catch (e) {
+          console.log("exception", e)
           return me.$Message.error(Response.instance(e).msg)
         }
       })
