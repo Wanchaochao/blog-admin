@@ -18,6 +18,7 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 // const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '/'
 const target = process.env.NODE_ENV === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
 module.exports = {
+  assetsDir: 'http://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/',
   devServer: {
     proxy: {
       '/api': { // 使用"/api"来代替"http://localhost:8081/"
