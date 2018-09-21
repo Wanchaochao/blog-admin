@@ -211,7 +211,8 @@ export default {
       if (e.target.value === '') this.insideTableData = this.value
     },
     handleSearch (searchKey, searchValue) {
-      if (searchValue && searchKey) { this.insideTableData = this.value.filter(item => item[searchKey].indexOf(searchValue) > -1) }
+      window.value = this.value
+      if (searchValue && searchKey && isstring(this.column.searchKey)) { this.insideTableData = this.value.filter(item => item[searchKey].indexOf(searchValue) > -1) }
     },
     handleTableData () {
       this.insideTableData = this.value.map((item, index) => {

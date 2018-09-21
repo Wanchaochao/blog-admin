@@ -52,4 +52,3 @@ export class Processer {
 
 const defaultProcess = Processer.instance()
 export const Process = (fn) => defaultProcess.co(fn)
-console.log("co Process" , Process)

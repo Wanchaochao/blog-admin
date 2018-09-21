@@ -1,6 +1,6 @@
 class Config {
   env () {
-    return 'mock'
+      return ''
   }
 }
 

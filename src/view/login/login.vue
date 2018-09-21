@@ -29,15 +29,12 @@ export default {
     ...mapActions('user', ['handleLogin']),
     submitLogin (data) {
       let me = this
-      console.log("store data:", data , Process)
       window['Process'] = Process
       Process(function* () {
         try {
           yield me.handleLogin({name: data.userName, password: data.password})
-          console.log("router:")
           return me.$router.push({path: '/'})
         } catch (e) {
-          console.log("exception", e)
           return me.$Message.error(Response.instance(e).msg)
         }
       })

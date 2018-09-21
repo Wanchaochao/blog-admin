@@ -1,7 +1,7 @@
 <template>
     <div v-if="searchable && searchPlace === 'top'" class="search-con search-con-top">
         <Select v-model="searchKey" class="search-col">
-            <Option v-for="item in columns" v-if="item.key !== 'handle'" :value="item.key"
+            <Option v-for="item in columns" v-if="" :value="item.key"
                     :key="`search-col-${item.key}`">{{ item.title }}
             </Option>
         </Select>

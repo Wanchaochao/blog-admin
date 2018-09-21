@@ -17,9 +17,7 @@ export default {
     // 登录
     handleLogin (store, data) {
       return co(function* () {
-        console.log("loginApi data:", data)
         let resp = yield loginApi(data)
-        console.log("resp:",resp)
         StorageModel.setUser(resp.data)
         return resp.userInfo
       })

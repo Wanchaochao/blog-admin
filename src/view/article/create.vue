@@ -73,7 +73,7 @@
 
 <script>
 import {mapActions} from 'vuex'
-import {Process} from '../../util'
+import {Process} from '../../util/co'
 
 export default {
   name: 'create',

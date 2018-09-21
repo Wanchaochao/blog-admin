@@ -13,7 +13,7 @@
                 <Col>
                     <div class="search-con search-con-top">
                         <Select v-model="searchKey" class="search-col">
-                            <Option v-for="item in columns" v-if="item.key !== 'handle'" :value="item.key"
+                            <Option v-for="item in columns" v-if="item.searchable === true" :value="item.key"
                                     :key="`search-col-${item.key}`">{{ item.title }}
                             </Option>
                         </Select>
@@ -33,89 +33,92 @@
 </template>
 
 <script>
-import Tables from '_c/tables'
-import {mapActions, mapState} from 'vuex'
-import {Process} from '../../util/co'
+  import Tables from '_c/tables'
+  import {mapActions, mapState} from 'vuex'
+  import {Process} from '../../util/co'
 
-export default {
-  name: 'articleList',
-  methods: {
-    ...mapActions('articles', ['getArticles', 'articleList']),
-    handleDelete: (params) => {
-      console.log(params)
+  export default {
+    name: 'articleList',
+    methods: {
+      ...mapActions('articles', ['getArticles', 'articleList']),
+      handleDelete: (params) => {
+        console.log(params)
+      },
+      exportExcel() {
+        this.$refs.tables.exportCsv({
+          filename: `articles-${(new Date()).valueOf()}.csv`
+        })
+      },
+      createArticle() {
+        this.$router.push('/admin/createArticle')
+      },
+      handleClear(e) {
+        this.$refs.tables.handleClear(e)
+      },
+      handleSearch() {
+        let me = this
+        if (me.searchValue && me.searchKey) {
+          this.$refs.tables.handleSearch(me.searchKey, me.searchValue)
+        }
+      }
     },
-    exportExcel () {
-      this.$refs.tables.exportCsv({
-        filename: `articles-${(new Date()).valueOf()}.csv`
+    computed: {
+      ...mapState('articles', ['articles'])
+    },
+    mounted() {
+    },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        let data = {}
+        Process(function* () {
+          yield vm.getArticles(data)
+        })
       })
     },
-    createArticle () {
-      this.$router.push('/admin/createArticle')
+    components: {
+      Tables
     },
-    handleClear (e) {
-      this.$refs.tables.handleClear(e)
-    },
-    handleSearch () {
-      let me = this
-      if (me.searchValue && me.searchKey) {
-        this.$refs.tables.handleSearch(me.searchKey, me.searchValue)
-      }
-    }
-  },
-  computed: {
-    ...mapState('articles', ['articles'])
-  },
-  mounted () {
-    let me = this
-    let data = {}
-    Process(function* () {
-      yield me.getArticles(data)
-    })
-  },
-  components: {
-    Tables
-  },
-  data () {
-    return {
-      searchKey: '',
-      searchValue: '',
-      columns: [
-        {title: 'ID', key: 'id', sortable: true},
-        {title: 'title', key: 'title', sortable: false},
-        {title: 'category', key: 'Category', sortable: false},
-        {title: 'author', key: 'author', sortable: false},
-        {title: 'description', key: 'description', sortable: false},
-        {title: 'created_at', key: 'created_at', sortable: true},
-        {title: 'updated_at', key: 'updated_at', sortable: true},
-        {
-          title: '操作',
-          key: 'handle',
-          options: ['delete'],
-          button: [
-            (h, params, vm) => {
-              return h('Poptip', {
-                props: {
-                  confirm: true,
-                  title: '确定要删除吗?'
-                },
-                on: {
-                  'on-click': () => {
-                    vm.$emit('on-delete', params)
-                    vm.$emit('input', params.tableData.filter((item, index) => {
-                      return index !== params.row.initRowIndex
-                    }))
+    data() {
+      return {
+        searchKey: '',
+        searchValue: '',
+        columns: [
+          {title: 'id', key: 'id', sortable: true},
+          {title: 'title', key: 'title', sortable: false, searchable: true},
+          {title: 'category', key: 'Category', sortable: false, searchable: true},
+          {title: 'author', key: 'author', sortable: false, searchable: true},
+          {title: 'description', key: 'description', sortable: false, searchable: true},
+          {title: 'created_at', key: 'created_at', sortable: true, searchable: true},
+          {title: 'updated_at', key: 'updated_at', sortable: true, searchable: true},
+          {
+            title: '操作',
+            key: 'handle',
+            options: ['delete'],
+            button: [
+              (h, params, vm) => {
+                return h('Poptip', {
+                  props: {
+                    confirm: true,
+                    title: '确定要删除吗?'
+                  },
+                  on: {
+                    'on-click': () => {
+                      vm.$emit('on-delete', params)
+                      vm.$emit('input', params.tableData.filter((item, index) => {
+                        return index !== params.row.initRowIndex
+                      }))
+                    }
                   }
-                }
-              })
-            }
-          ]
-        }
-      ],
-      tableData: []
-    }
-  },
-  watch: {}
-}
+                })
+              }
+            ]
+          }
+        ],
+        tableData: []
+      }
+    },
+    watch: {}
+  }
 </script>
 
 <style scoped>

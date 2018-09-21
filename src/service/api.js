@@ -14,6 +14,7 @@ const request = (param) => {
     method: param.method
   }
   return new Promise((resolve, reject) => {
+    console.log('Promise begin')
     if (ConfigModel.env() === 'mock') {
       setTimeout(function () {
         resolve(mock[param.url])
