@@ -15,8 +15,9 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 // 如果您的应用程序部署在子路径中，则需要在这指定子路径
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
-// const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '/'
+const BASE_URL = process.env.NODE_ENV === 'production' ? 'http://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/' : '/'
 const target = process.env.NODE_ENV === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
+// const target = 'http://api.littlebug.vip/'
 module.exports = {
   devServer: {
     proxy: {
@@ -43,8 +44,8 @@ module.exports = {
   // sub-path here. For example, if your app is deployed at
   // https://www.foobar.com/my-app/
   // then change this to '/my-app/'
-  //baseUrl: '/',
-  baseUrl: 'https://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/',
+  baseUrl: BASE_URL,
+  // baseUrl: BASE_URL,
   // tweak internal webpack configuration.
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: config => {
