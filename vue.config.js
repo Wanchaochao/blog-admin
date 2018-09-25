@@ -15,8 +15,10 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 // 如果您的应用程序部署在子路径中，则需要在这指定子路径
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
-const BASE_URL = process.env.NODE_ENV === 'production' ? 'http://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/' : '/'
-const target = process.env.NODE_ENV === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
+// const ENV = "development"
+const ENV = "production"
+const BASE_URL = ENV === 'production' ? 'http://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/' : '/'
+const target = ENV === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
 // const target = 'http://api.littlebug.vip/'
 module.exports = {
   devServer: {
