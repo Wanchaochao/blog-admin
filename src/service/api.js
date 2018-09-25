@@ -6,7 +6,7 @@ import {StorageModel} from '@/model/storage'
 import url from '../../config/url'
 
 axios.defaults.baseURL = url // api基础路径
-// axios.defaults.baseURL = '/api' // api基础路径
+// axios.defaults.baseURL = '' // api基础路径
 
 const request = (param) => {
   param = {
@@ -50,7 +50,7 @@ const request = (param) => {
 
 export const loginApi = (data) => {
   return request({
-    url: '/api/login',
+    url: '/adm/login',
     data: data,
     method: 'post'
   })
@@ -58,7 +58,7 @@ export const loginApi = (data) => {
 
 export const getArticles = (data) => {
   return request({
-    url: '/api/adm/articleList',
+    url: '/adm/articleList',
     data: data,
     method: 'post'
   })
@@ -66,7 +66,7 @@ export const getArticles = (data) => {
 
 export const storeArticle = (data) => {
   return request({
-    url: '/api/adm/storeArticle',
+    url: '/adm/storeArticle',
     data: data,
     method: 'post'
   })
@@ -74,7 +74,7 @@ export const storeArticle = (data) => {
 
 export const getCategories = (data) => {
   return request({
-    url: '/api/adm/getCategories',
+    url: '/adm/getCategories',
     data: data,
     method: 'post'
   })
