@@ -23,8 +23,10 @@ const request = (param) => {
     // console.log("param1:",param.headers)
     param.headers = {
       ...param.headers,
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
+      'Access-Control-Allow-Credentials': true,
       'content-type': 'application/x-www-form-urlencoded',
-      'Access-Token': StorageModel.getUser().token
     }
 
     // console.log("param2",param.headers)
@@ -32,9 +34,9 @@ const request = (param) => {
       config => {
         // 如果state中存有token,那么每次请求都应该将token放入请求头
         // config.data = JSON.stringify(config.data)
-        config.headers = {
-          'content-type': 'application/x-www-form-urlencoded'
-        }
+        // config.headers = {
+        //   'content-type': 'application/x-www-form-urlencoded'
+        // }
         let token = StorageModel.getUser().token
         if (token) {
           config.headers["Access-Token"] = StorageModel.getUser().token
