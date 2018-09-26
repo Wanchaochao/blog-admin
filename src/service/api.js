@@ -11,7 +11,10 @@ axios.defaults.baseURL = url // api基础路径
 const request = (param) => {
   param = {
     ...param,
-    method: param.method
+    method: param.method,
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    }
   }
   return new Promise((resolve, reject) => {
     if (ConfigModel.env() === 'mock') {
@@ -20,35 +23,12 @@ const request = (param) => {
       }, 500)
       return
     }
-    // console.log("param1:",param.headers)
-    param.headers = {
-      ...param.headers,
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-      'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
-      'Access-Control-Allow-Credentials': true,
-      'content-type': 'application/x-www-form-urlencoded',
+    let token = StorageModel.getUser().token
+    if (token) {
+      param.headers['Access-Token'] = token
     }
 
-    // console.log("param2",param.headers)
-    axios.interceptors.request.use(
-      config => {
-        // 如果state中存有token,那么每次请求都应该将token放入请求头
-        // config.data = JSON.stringify(config.data)
-        // config.headers = {
-        //   'content-type': 'application/x-www-form-urlencoded'
-        // }
-        let token = StorageModel.getUser().token
-        if (token) {
-          config.headers["Access-Token"] = StorageModel.getUser().token
-        }
-        return config
-      },
-      err => {
-        return Promise.reject(err)
-      }
-    )
     axios(param).then(v => {
-      console.log(param)
       const response = Response.instance(v.data)
       // console.log("v.data" , v.data , response.isOk())
       // if (response.notLogin()) {
