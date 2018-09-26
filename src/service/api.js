@@ -4,6 +4,7 @@ import mock from '../mock'
 import {ConfigModel} from '../model/Config'
 import {StorageModel} from '@/model/storage'
 import url from '../../config/url'
+import Qs from 'qs'
 
 axios.defaults.baseURL = url // api基础路径
 // axios.defaults.baseURL = '' // api基础路径
@@ -27,13 +28,16 @@ const request = (param) => {
     if (token) {
       param.headers['Access-Token'] = token
     }
-
-    axios(param).then(v => {
+    let instance = axios.create({
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      // transformRequest: [function (data) {
+      //   data = Qs.stringify(data);
+      //   return data;
+      // }],
+      withCredentials:true
+    });
+    instance(param).then(v => {
       const response = Response.instance(v.data)
-      // console.log("v.data" , v.data , response.isOk())
-      // if (response.notLogin()) {
-      //   response.redirect('login')
-      // }
       if (response.isOk()) {
         resolve(v.data)
       } else {
