@@ -59,14 +59,12 @@ export default {
   methods: {
     handleSubmit () {
       this.$refs.loginForm.validate((valid) => {
-        console.log(1)
         if (valid) {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password
           })
         }
-        console.log(2)
       })
     }
   }
