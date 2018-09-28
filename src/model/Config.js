@@ -1,7 +1,5 @@
 class Config {
-  env () {
-      return ''
-  }
+  isMock = false
 }
 
 export const ConfigModel = new Config()

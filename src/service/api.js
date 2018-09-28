@@ -4,39 +4,24 @@ import mock from '../mock'
 import {ConfigModel} from '../model/Config'
 import {StorageModel} from '@/model/storage'
 import url from '../../config/url'
-import Qs from 'qs'
 
-axios.defaults.baseURL = url // api基础路径
-// axios.defaults.baseURL = '' // api基础路径
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL = url;
 
 const request = (param) => {
-  param = {
-    ...param,
-    method: param.method,
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-    }
-  }
   return new Promise((resolve, reject) => {
-    if (ConfigModel.env() === 'mock') {
+    // if mock
+    if (ConfigModel.isMock) {
       setTimeout(function () {
         resolve(mock[param.url])
       }, 500)
       return
     }
-    let token = StorageModel.getUser().token
-    if (token) {
-      param.headers['Access-Token'] = token
+    axios.post('http://www.littlebug.vip',{})
+    if (StorageModel.getUser().token) {
+      param.headers['Access-token'] = StorageModel.getUser().token
     }
-    let instance = axios.create({
-      headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      // transformRequest: [function (data) {
-      //   data = Qs.stringify(data);
-      //   return data;
-      // }],
-      withCredentials:true
-    });
-    instance(param).then(v => {
+    axios(param).then(v => {
       const response = Response.instance(v.data)
       if (response.isOk()) {
         resolve(v.data)
@@ -44,13 +29,14 @@ const request = (param) => {
         reject(response)
       }
     }).catch(e => {
-      console.log('catch', e)
+      console.error('【catch error】: ', e)
       reject(e)
     })
   })
 }
 
 export const loginApi = (data) => {
+  // return axios.post('http://api.littlebug.vip/adm/login',data)
   return request({
     url: '/adm/login',
     data: data,
@@ -76,8 +62,8 @@ export const storeArticle = (data) => {
 
 export const getCategories = (data) => {
   return request({
-    url: '/adm/getCategories',
+    url: '/adm/categories',
     data: data,
-    method: 'post'
+    method: 'get'
   })
 }

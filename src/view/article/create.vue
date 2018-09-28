@@ -16,11 +16,7 @@
                             <FormItem label="category_id" prop="category_id"
                                       :rules="{required:true,message:'category is required!',trigger: 'change'}">
                                 <Select v-model="formData.category_id" placeholder="Select your city">
-                                    <Option value="1">Linux</Option>
-                                    <Option value="2">Mysql</Option>
-                                    <Option value="3">Php</Option>
-                                    <Option value="4">Golang</Option>
-                                    <Option value="5">web</Option>
+                                    <Option value="cate.id" v-for="cate in categories">{{ cate.name }}</Option>
                                 </Select>
                             </FormItem>
 
@@ -72,13 +68,17 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import {Process} from '../../util/co'
 
 export default {
   name: 'create',
+  computed: {
+    ...mapState('categories', ['articles'])
+  },
   data () {
     return {
+      categories: [],
       formData: {
         title: '',
         author: '',
@@ -119,7 +119,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('articles', ['storeArticle']),
+    ...mapActions('articles', ['storeArticle', 'getCate']),
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
@@ -140,7 +140,14 @@ export default {
       this.$refs[name].resetFields()
     }
 
-  }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      Process(function* () {
+        vm.categories = yield vm.getCate({})
+      })
+    })
+  },
 }
 </script>
 

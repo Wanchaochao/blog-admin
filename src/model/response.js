@@ -1,23 +1,21 @@
 export class Response {
-    retcode
-    data
-    msg
+  retcode
+  data
+  msg
 
-    static instance(data) {
-        return new Response(data)
+  static instance(v) {
+    const m = new Response()
+    for (const k in v) {
+      m[k] = v[k]
     }
+    return m
+  }
 
-    isOk() {
-        return this.retcode == 0
-    }
+  isOk() {
+    return this.retcode == 0
+  }
 
-    notLogin() {
-        return this.retcode === 401
-    }
-
-    constructor(data) {
-        for (let key in data) {
-            this[key] = data[key]
-        }
-    }
+  notLogin() {
+    return this.retcode === 401
+  }
 }
