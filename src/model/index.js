@@ -1,3 +1,3 @@
 export * from './response'
-export * from './Config'
+export * from './config'
 export * from './storage'

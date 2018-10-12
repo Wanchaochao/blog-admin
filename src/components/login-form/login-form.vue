@@ -44,7 +44,7 @@ export default {
     return {
       form: {
         userName: 'littlebug',
-        password: '123123213123'
+        password: '82.80.JAN'
       }
     }
   },

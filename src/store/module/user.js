@@ -19,7 +19,7 @@ export default {
       return co(function* () {
         let resp = yield loginApi(data)
         StorageModel.setUser(resp.data)
-        return resp.userInfo
+        return resp.data
       })
     },
     handleLogOut () {

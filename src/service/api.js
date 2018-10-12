@@ -1,11 +1,10 @@
 import axios from 'axios'
 import {Response} from '../model'
 import mock from '../mock'
-import {ConfigModel} from '../model/Config'
-import {StorageModel} from '@/model/storage'
+import {ConfigModel} from '../model/config'
+import {StorageModel} from '../model/storage'
 import url from '../../config/url'
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.baseURL = url;
 
 const request = (param) => {
@@ -17,15 +16,22 @@ const request = (param) => {
       }, 500)
       return
     }
-    axios.post('http://www.littlebug.vip',{})
-    if (StorageModel.getUser().token) {
-      param.headers['Access-token'] = StorageModel.getUser().token
+    let token = StorageModel.getUser().token
+    if (token) {
+      param.headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'Access-Token': StorageModel.getUser().token
+      }
+    }
+    if (param.method === 'post') {
+      param.headers['content-type'] = 'json'
     }
     axios(param).then(v => {
       const response = Response.instance(v.data)
       if (response.isOk()) {
         resolve(v.data)
       } else {
+        console.error('【catch error】: ', response)
         reject(response)
       }
     }).catch(e => {
@@ -36,7 +42,6 @@ const request = (param) => {
 }
 
 export const loginApi = (data) => {
-  // return axios.post('http://api.littlebug.vip/adm/login',data)
   return request({
     url: '/adm/login',
     data: data,

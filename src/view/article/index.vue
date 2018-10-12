@@ -27,20 +27,24 @@
             </Row>
             <tables ref="tables" editable search-place="top" v-model="articles" :columns="columns"
                     @on-delete="handleDelete"/>
-            <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <page :total="total" :current="current" @on-change="changePage" v-if="current > 0"></page>
+                </div>
+            </div>
         </Card>
     </div>
 </template>
 
 <script>
   import Tables from '_c/tables'
-  import {mapActions, mapState} from 'vuex'
   import {Process} from '../../util/co'
+  import co from 'co'
+  import {getArticles} from '../../service'
 
   export default {
     name: 'articleList',
     methods: {
-      ...mapActions('articles', ['getArticles', 'articleList']),
       handleDelete: (params) => {
         console.log(params)
       },
@@ -60,19 +64,29 @@
         if (me.searchValue && me.searchKey) {
           this.$refs.tables.handleSearch(me.searchKey, me.searchValue)
         }
+      },
+      getArticles(p) {
+        console.log(p)
+        let me = this
+        co(function* () {
+          let res = yield getArticles(p);
+          me.total = parseInt(res.data.total);
+          me.current = parseInt(res.data.current);
+          me.articles = res.data.list;
+        }).catch(e => {
+          throw e
+        })
+      },
+      changePage(page) {
+        this.getArticles({page:page})
       }
-    },
-    computed: {
-      ...mapState('articles', ['articles'])
     },
     mounted() {
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        let data = {}
-        Process(function* () {
-          yield vm.getArticles(data)
-        })
+        let data = {page:1}
+        vm.getArticles(data)
       })
     },
     components: {
@@ -80,6 +94,9 @@
     },
     data() {
       return {
+        articles: [],
+        total: 0,
+        current: 0,
         searchKey: '',
         searchValue: '',
         columns: [
