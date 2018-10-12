@@ -29,12 +29,12 @@ export default {
     ...mapActions('user', ['handleLogin']),
     submitLogin (data) {
       let me = this
-      window['Process'] = Process
       Process(function* () {
         try {
           yield me.handleLogin({name: data.userName, password: data.password})
           return me.$router.push({path: '/'})
         } catch (e) {
+          console.error(e)
           return me.$Message.error(Response.instance(e).msg)
         }
       })

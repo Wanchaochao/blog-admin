@@ -5,7 +5,7 @@ import {ConfigModel} from '../model/config'
 import {StorageModel} from '../model/storage'
 import url from '../../config/url'
 
-axios.defaults.baseURL = url;
+axios.defaults.baseURL = url
 
 const request = (param) => {
   return new Promise((resolve, reject) => {
@@ -16,10 +16,10 @@ const request = (param) => {
       }, 500)
       return
     }
+    param.headers = {'content-type': 'application/x-www-form-urlencoded'}
     let token = StorageModel.getUser().token
     if (token) {
       param.headers = {
-        'content-type': 'application/x-www-form-urlencoded',
         'Access-Token': StorageModel.getUser().token
       }
     }
