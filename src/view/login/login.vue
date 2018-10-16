@@ -20,7 +20,6 @@ import LoginForm from '_c/login-form'
 import {mapActions} from 'vuex'
 import {Process} from '../../util/co'
 import {Response} from '../../model'
-import TCaptcha from '../../assets/js/TCaptcha'
 
 export default {
   components: {
