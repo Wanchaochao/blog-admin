@@ -15,8 +15,8 @@
                         <Col span="8">
                             <FormItem label="category_id" prop="category_id"
                                       :rules="{required:true,message:'category is required!',trigger: 'change'}">
-                                <Select v-model="formData.category_id" placeholder="Select your city">
-                                    <Option value="cate.id" v-for="cate in categories">{{ cate.name }}</Option>
+                                <Select v-model="formData.category_id" placeholder="choose a category for your article at best">
+                                    <Option :value="cate.id.toString()" v-for="cate in categories">{{ cate.name }}</Option>
                                 </Select>
                             </FormItem>
 
@@ -85,37 +85,37 @@ export default {
         category_id: '',
         description: '',
         content: ''
-      },
-      ruleValidate: {
-        title: [
-          {required: true, message: 'Please write the title', trigger: 'change', type: 'string'}
-        ],
-        author: [
-          {
-            required: true,
-            type: 'string',
-            min: 1,
-            message: 'Choose at least one hobby',
-            trigger: 'change'
-          }
-        ],
-        category_id: [
-          {type: 'number', max: 99, message: 'Choose a category at best', trigger: 'change', required: true}
-        ],
-        content: [
-          {
-            required: true,
-            type: 'string',
-            min: 50,
-            message: 'write the content of this article at least 50 word',
-            trigger: 'change'
-          }
-        ],
-        description: [
-          {required: true, message: 'Please enter a description', trigger: 'blur'},
-          {type: 'string', min: 4, message: 'Introduce no more than 4 words', trigger: 'blur'}
-        ]
       }
+      // ruleValidate: {
+      //   title: [
+      //     {required: true, message: 'Please write the title', trigger: 'change', type: 'string'}
+      //   ],
+      //   author: [
+      //     {
+      //       required: true,
+      //       type: 'string',
+      //       min: 1,
+      //       message: 'Choose at least one hobby',
+      //       trigger: 'change'
+      //     }
+      //   ],
+      //   category_id: [
+      //     {type: 'number', max: 99, message: 'Choose a category at best', trigger: 'change', required: true}
+      //   ],
+      //   content: [
+      //     {
+      //       required: true,
+      //       type: 'string',
+      //       min: 50,
+      //       message: 'write the content of this article at least 50 word',
+      //       trigger: 'change'
+      //     }
+      //   ],
+      //   description: [
+      //     {required: true, message: 'Please enter a description', trigger: 'blur'},
+      //     {type: 'string', min: 4, message: 'Introduce no more than 4 words', trigger: 'blur'}
+      //   ]
+      // }
     }
   },
   methods: {
@@ -141,13 +141,13 @@ export default {
     }
 
   },
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter (to, from, next) {
     next(vm => {
       Process(function* () {
         vm.categories = yield vm.getCate({})
       })
     })
-  },
+  }
 }
 </script>
 

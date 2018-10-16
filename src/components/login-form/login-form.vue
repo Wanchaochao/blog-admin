@@ -15,7 +15,7 @@
       </Input>
     </FormItem>
     <FormItem>
-      <Button @click="handleSubmit" type="primary" long>登录</Button>
+      <Button id="TencentCaptcha" data-appid="2070777383" data-cbfn="callback" @click="handleSubmit" type="primary" long>登录</Button>
     </FormItem>
   </Form>
 </template>
@@ -67,6 +67,25 @@ export default {
         }
       })
     }
+  },
+  mounted () {
+    // 直接生成一个验证码对象
+    var captcha1 = new TencentCaptcha('appid', function (res) { /* callback */ })
+    captcha1.show() // 显示验证码
+
+    // 绑定一个元素并手动传入场景Id和回调
+    new TencentCaptcha(
+      document.getElementById('TencentCaptcha'),
+      'appid',
+      function (res) {
+        console.log(res)
+      },
+      { bizState: '自定义透传参数' }
+    )
+
+    // 绑定一个元素并自动识别场景id和回调
+    // 验证码会读取dom上的`data-appid`和`data-cbfn`以及`data-biz-state`(可选)自动初始化
+    new TencentCaptcha(document.getElementById('TencentCaptcha'))
   }
 }
 </script>

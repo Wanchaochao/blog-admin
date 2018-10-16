@@ -16,7 +16,7 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
 // const ENV = "development"
-const ENV = "production"
+const ENV = 'production'
 const BASE_URL = ENV === 'production' ? 'http://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/' : '/'
 const target = ENV === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
 // const target = 'http://api.littlebug.vip/'
@@ -24,15 +24,22 @@ module.exports = {
   devServer: {
     proxy: {
       '/adm': { // 使用"/api"来代替"http://localhost:8081/"
-        target: target, // 源地址
-        changeOrigin: true, // 改变源
+        target: 'http://api.littlebug.vip/', // 源地址
+        changeOrigin: true // 改变源
       }
-      // '/admapi': {
-      //     target: 'http://localhost:8081/', //源地址
+      // '/cap_union_new_verify': {
+      //     target: 'https://ssl.captcha.qq.com', //源地址
       //     changeOrigin: true, //改变源
       //     // pathRewrite: {
       //     //     '^/admin': "/" //路径重写
       //     // }
+      // },
+      // '/caplog': {
+      //   target: 'https://dj.captcha.qq.com', //源地址
+      //   changeOrigin: true, //改变源
+      //   // pathRewrite: {
+      //   //     '^/admin': "/" //路径重写
+      //   // }
       // }
     }
   },

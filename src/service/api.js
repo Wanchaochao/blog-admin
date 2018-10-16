@@ -57,6 +57,14 @@ export const getArticles = (data) => {
   })
 }
 
+export const deleteArticle = (data) => {
+  return request({
+    url: '/adm/deleteArticle?id=' + data.id,
+    data: data,
+    method: 'get'
+  })
+}
+
 export const storeArticle = (data) => {
   return request({
     url: '/adm/storeArticle',
