@@ -83,7 +83,7 @@ export const getCategories = (data) => {
 
 export const captcha = (data) => {
   return request({
-    url: '/adm/captcha?ticket=' + data.ticket,
+    url: '/adm/captcha?ticket=' + data.ticket + '&randstr=' + data.randstr,
     data: data,
     method: 'get'
   })
