@@ -16,13 +16,13 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
 const BASE_URL = env === 'production' ? 'http://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/' : '/'
-const target = env === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
+const target = env === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8083/'
 // const target = 'http://api.littlebug.vip/'
 module.exports = {
   devServer: {
     proxy: {
       '/adm': { // 使用"/api"来代替"http://localhost:8081/"
-        target: 'http://api.littlebug.vip/', // 源地址
+        target: target, // 源地址
         changeOrigin: true // 改变源
       }
       // '/cap_union_new_verify': {
@@ -41,13 +41,6 @@ module.exports = {
       // }
     }
   },
-  // Project deployment base
-  // By default we assume your app will be deployed at the root of a domain,
-  // e.g. https://www.my-app.com/
-  // If your app is deployed at a sub-path, you will need to specify that
-  // sub-path here. For example, if your app is deployed at
-  // https://www.foobar.com/my-app/
-  // then change this to '/my-app/'
   baseUrl: BASE_URL,
   // baseUrl: BASE_URL,
   // tweak internal webpack configuration.

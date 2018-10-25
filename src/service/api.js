@@ -31,7 +31,7 @@ const request = (param) => {
       if (response.isOk()) {
         resolve(v.data)
       } else {
-        console.error('【catch error】: ', response)
+        console.error('response failed: ', response)
         reject(response)
       }
     }).catch(e => {
@@ -76,6 +76,14 @@ export const storeArticle = (data) => {
 export const getCategories = (data) => {
   return request({
     url: '/adm/categories',
+    data: data,
+    method: 'get'
+  })
+}
+
+export const captcha = (data) => {
+  return request({
+    url: '/adm/captcha?ticket=' + data.ticket,
     data: data,
     method: 'get'
   })
