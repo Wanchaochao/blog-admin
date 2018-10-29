@@ -1,6 +1,5 @@
 import co from 'co'
 import {loginApi} from '../../service'
-// import {setToken} from '../../libs/util'
 import {StorageModel} from '../../model'
 
 export default {

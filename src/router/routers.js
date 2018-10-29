@@ -11,194 +11,205 @@ import Main from '@/view/main'
  */
 
 export default [
-    {
-        path: '/login',
-        name: 'login',
-        meta: {
-            title: 'Login - 登录',
-            hideInMenu: true
-        },
-        component: () => import('@/view/login/login.vue')
+  {
+    path: '/login',
+    name: 'login',
+    meta: {
+      title: 'Login - 登录',
+      hideInMenu: true
     },
-    {
-        path: '/',
-        name: '_home',
-        redirect: '/home',
-        component: Main,
-        meta: {
-            hideInMenu: true,
-            notCache: true
-        },
-        children: [
-            {
-                path: '/home',
-                name: 'home',
-                meta: {
-                    hideInMenu: true,
-                    title: '首页',
-                    notCache: true
-                },
-                component: () => import('@/view/single-page/home')
-            }
-        ]
+    component: () => import('@/view/login/login.vue')
+  },
+  {
+    path: '/',
+    name: '_home',
+    redirect: '/home',
+    component: Main,
+    meta: {
+      hideInMenu: true,
+      notCache: true
     },
-    {
-        path: '/admin',
-        name: 'admin',
+    children: [
+      {
+        path: '/home',
+        name: 'home',
         meta: {
-            icon: 'logo-buffer',
-            title: '文章管理'
+          hideInMenu: true,
+          title: '首页',
+          notCache: true
         },
-        component: Main,
-        children: [
-            {
-                path: 'articleList',
-                name: 'articleList',
-                meta: {
-                    icon: 'md-apps',
-                    title: '文章列表'
-                },
-                component: () => import('@/view/article/index.vue')
-            },
-            {
-                path: 'createArticle',
-                name: 'createArticle',
-                meta: {
-                    // hideInMenu: true,
-                    title: '添加文章',
-                    notCache: true,
-                    icon: 'md-add'
-                },
-                component: () => import('@/view/article/create')
-            }
-        ]
+        component: () => import('@/view/single-page/home')
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    meta: {
+      icon: 'logo-buffer',
+      title: '文章管理'
     },
-    {
-        path: '/components',
-        name: 'components',
+    component: Main,
+    children: [
+      {
+        path: 'articleList',
+        name: 'articleList',
         meta: {
-            icon: 'logo-buffer',
-            title: '组件'
+          icon: 'md-apps',
+          title: '文章列表'
         },
-        component: Main,
-        children: [
-            {
-                path: 'directive_page',
-                name: 'directive_page',
-                meta: {
-                    icon: 'ios-navigate',
-                    title: '指令'
-                },
-                component: () => import('@/view/directive/directive.vue')
-            },
-            {
-                path: 'count_to_page',
-                name: 'count_to_page',
-                meta: {
-                    icon: 'md-trending-up',
-                    title: '数字渐变'
-                },
-                component: () => import('@/view/components/count-to/count-to.vue')
-            },
-            {
-                path: 'tables_page',
-                name: 'tables_page',
-                meta: {
-                    icon: 'md-grid',
-                    title: '多功能表格'
-                },
-                component: () => import('@/view/components/tables/tables.vue')
-            },
-            {
-                path: 'icons_page',
-                name: 'icons_page',
-                meta: {
-                    icon: '_bear',
-                    title: '自定义图标'
-                },
-                component: () => import('@/view/components/icons/icons.vue')
-            }
-        ]
+        component: () => import('@/view/article/index.vue')
+      },
+      {
+        path: 'createArticle',
+        name: 'createArticle',
+        meta: {
+          hideInMenu: true,
+          title: '添加文章',
+          notCache: true,
+          icon: 'md-add'
+        },
+        component: () => import('@/view/article/create')
+      },
+      {
+        path: 'editArticle',
+        name: 'editArticle',
+        meta: {
+          hideInMenu: true,
+          title: '编辑',
+          notCache: true,
+          icon: 'md-edit'
+        },
+        component: () => ''
+      }
+    ]
+  },
+  {
+    path: '/components',
+    name: 'components',
+    meta: {
+      icon: 'logo-buffer',
+      title: '组件'
     },
-    {
-        path: '/multilevel',
-        name: 'multilevel',
+    component: Main,
+    children: [
+      {
+        path: 'directive_page',
+        name: 'directive_page',
         meta: {
-            icon: 'md-menu',
-            title: '多级菜单'
+          icon: 'ios-navigate',
+          title: '指令'
         },
-        component: Main,
-        children: [
-            {
-                path: 'level_2_1',
-                name: 'level_2_1',
-                meta: {
-                    icon: 'md-funnel',
-                    title: '二级-1'
-                },
-                component: () => import('@/view/multilevel/level-2-1.vue')
-            },
-            {
-                path: 'level_2_3',
-                name: 'level_2_3',
-                meta: {
-                    icon: 'md-funnel',
-                    title: '二级-3'
-                },
-                component: () => import('@/view/multilevel/level-2-3.vue')
-            },
-        ]
+        component: () => import('@/view/directive/directive.vue')
+      },
+      {
+        path: 'count_to_page',
+        name: 'count_to_page',
+        meta: {
+          icon: 'md-trending-up',
+          title: '数字渐变'
+        },
+        component: () => import('@/view/components/count-to/count-to.vue')
+      },
+      {
+        path: 'tables_page',
+        name: 'tables_page',
+        meta: {
+          icon: 'md-grid',
+          title: '多功能表格'
+        },
+        component: () => import('@/view/components/tables/tables.vue')
+      },
+      {
+        path: 'icons_page',
+        name: 'icons_page',
+        meta: {
+          icon: '_bear',
+          title: '自定义图标'
+        },
+        component: () => import('@/view/components/icons/icons.vue')
+      }
+    ]
+  },
+  {
+    path: '/multilevel',
+    name: 'multilevel',
+    meta: {
+      icon: 'md-menu',
+      title: '多级菜单'
     },
-    {
-        path: '/argu',
-        name: 'argu',
+    component: Main,
+    children: [
+      {
+        path: 'level_2_1',
+        name: 'level_2_1',
         meta: {
-            hideInMenu: true
+          icon: 'md-funnel',
+          title: '二级-1'
         },
-        component: Main,
-        children: [
-            {
-                path: 'params/:id',
-                name: 'params',
-                meta: {
-                    icon: 'md-flower',
-                    title: '动态路由'
-                },
-                component: () => import('@/view/argu-page/params.vue')
-            },
-            {
-                path: 'query',
-                name: 'query',
-                meta: {
-                    icon: 'md-flower',
-                    title: '带参路由'
-                },
-                component: () => import('@/view/argu-page/query.vue')
-            }
-        ]
+        component: () => import('@/view/multilevel/level-2-1.vue')
+      },
+      {
+        path: 'level_2_3',
+        name: 'level_2_3',
+        meta: {
+          icon: 'md-funnel',
+          title: '二级-3'
+        },
+        component: () => import('@/view/multilevel/level-2-3.vue')
+      },
+    ]
+  },
+  {
+    path: '/argu',
+    name: 'argu',
+    meta: {
+      hideInMenu: true
     },
-    {
-        path: '/401',
-        name: 'error_401',
+    component: Main,
+    children: [
+      {
+        path: 'params/:id',
+        name: 'params',
         meta: {
-            hideInMenu: true
+          icon: 'md-flower',
+          title: '动态路由'
         },
-        component: () => import('@/view/error-page/401.vue')
+        component: () => import('@/view/argu-page/params.vue')
+      },
+      {
+        path: 'query',
+        name: 'query',
+        meta: {
+          icon: 'md-flower',
+          title: '带参路由'
+        },
+        component: () => import('@/view/argu-page/query.vue')
+      }
+    ]
+  },
+  {
+    path: '/401',
+    name: 'error_401',
+    meta: {
+      hideInMenu: true
     },
-    {
-        path: '/500',
-        name: 'error_500',
-        meta: {
-            hideInMenu: true
-        },
-        component: () => import('@/view/error-page/500.vue')
+    component: () => import('@/view/error-page/401.vue')
+  },
+  {
+    path: '/500',
+    name: 'error_500',
+    meta: {
+      hideInMenu: true
     },
-    {
-        path: '*',
-        name: 'error_404',
-        meta: {
-            hideInMenu: true
-        },
-        component: () => import('@/view/error-page/404.vue')
-    }
+    component: () => import('@/view/error-page/500.vue')
+  },
+  {
+    path: '*',
+    name: 'error_404',
+    meta: {
+      hideInMenu: true
+    },
+    component: () => import('@/view/error-page/404.vue')
+  }
 ]

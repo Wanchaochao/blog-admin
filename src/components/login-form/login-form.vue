@@ -15,16 +15,13 @@
             </Input>
         </FormItem>
         <FormItem>
-            <Button id="TencentCaptcha" data-appid="2070777383" data-cbfn="captchaCallBack" @click="handleSubmit"
-                    type="primary" long>登录
-            </Button>
+            <Button  @click="handleSubmit" type="primary" long>登录</Button>
         </FormItem>
     </Form>
 </template>
 <script>
 import {Process} from '../../util/co'
 import {captcha} from '../../service/captcha'
-import {captcha as captchaAction} from '../../service/api'
 
 export default {
   name: 'LoginForm',
@@ -63,28 +60,26 @@ export default {
     }
   },
   methods: {
-    myCallBack (res) {
-      // res（未通过验证）= {ret: 1, ticket: null}
-      // res（验证成功） = {ret: 0, ticket: "String", randstr: "String"}
-      if (res.ret === 0) {
-        alert(res.ticket) // 票据
-        return res.ticket
-      }
-    },
     handleSubmit () {
       let me = this
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           Process(function *() {
             let res = yield captcha()
-            console.log(res)
             if (res.ret === 0) {
-              yield captchaAction(res)
+              return me.$emit('on-success-valid', {
+                userName: me.form.userName,
+                password: me.form.password
+              })
+            } else {
+              me.$Message.error('captcha cancel！')
             }
-            me.$emit('on-success-valid', {
-              userName: me.form.userName,
-              password: me.form.password
-            })
+            // me.$emit('on-success-valid', {
+            //   userName: me.form.userName,
+            //   password: me.form.password
+            // })
+          }).catch(e => {
+            me.$Message.error(Response.instance(e).msg)
           })
         }
       })

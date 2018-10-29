@@ -2,12 +2,15 @@ export const captcha = () => {
   return new Promise((resolve, reject) => {
     try {
       let captcha = new TencentCaptcha(
-        document.getElementById('TencentCaptcha'),
         '2070777383',
         function (res) {
-          resolve(res)
-        },
-        {bizState: '自定义透传参数'}
+          console.log(res)
+          if (res.ret === 0) {
+            resolve(res)
+          } else {
+            reject('canceled!')
+          }
+        }
       )
       captcha.show()
     } catch (e) {
