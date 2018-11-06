@@ -16,5 +16,22 @@ export default {
   directive_page: 'Directive',
   level_1: 'level-1',
   level_2: 'level-2',
-  level_2_1: 'level-2-1'
+  level_2_1: 'level-2-1',
+  createArticle: 'Create Article',
+  title: 'Title',
+  category_id: 'categoryId',
+  author: 'Author',
+  description: 'Description',
+  content: 'Content',
+  articleList: 'Article List',
+  login: 'Login',
+  home: 'Home',
+  articles: 'Articles',
+  search: 'Search',
+  enterKeyWords: 'Please enter key words',
+  handle: 'Actions',
+  id: 'Id',
+  category: 'Category',
+  created_at: 'CreatedAt',
+  updated_at: 'UpdatedAt'
 }

@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <Table
                 ref="tablesMain"
                 :data="insideTableData"
@@ -113,33 +112,33 @@ export default {
       default: false
     },
     /**
-             * @description 全局设置是否可编辑
-             */
+       * @description 全局设置是否可编辑
+       */
     editable: {
       type: Boolean,
       default: false
     },
     /**
-             * @description 是否可搜索
-             */
+       * @description 是否可搜索
+       */
     searchable: {
       type: Boolean,
       default: false
     },
     /**
-             * @description 搜索控件所在位置，'top' / 'bottom'
-             */
+       * @description 搜索控件所在位置，'top' / 'bottom'
+       */
     searchPlace: {
       type: String,
       default: 'top'
     }
   },
   /**
-         * Events
-         * @on-start-edit 返回值 {Object} ：同iview中render函数中的params对象 { row, index, column }
-         * @on-cancel-edit 返回值 {Object} 同上
-         * @on-save-edit 返回值 {Object} ：除上面三个参数外，还有一个value: 修改后的数据
-         */
+     * Events
+     * @on-start-edit 返回值 {Object} ：同iview中render函数中的params对象 { row, index, column }
+     * @on-cancel-edit 返回值 {Object} 同上
+     * @on-save-edit 返回值 {Object} ：除上面三个参数外，还有一个value: 修改后的数据
+     */
   data () {
     return {
       insideColumns: [],
@@ -212,7 +211,9 @@ export default {
     },
     handleSearch (searchKey, searchValue) {
       window.value = this.value
-      if (searchValue && searchKey && isstring(this.column.searchKey)) { this.insideTableData = this.value.filter(item => item[searchKey].indexOf(searchValue) > -1) }
+      if (searchValue && searchKey && isstring(this.column.searchKey)) {
+        this.insideTableData = this.value.filter(item => item[searchKey].indexOf(searchValue) > -1)
+      }
     },
     handleTableData () {
       this.insideTableData = this.value.map((item, index) => {

@@ -5,7 +5,7 @@
                 <Form ref="articleForm" :model="formData" :label-width="100">
                     <Row>
                         <Col span="12">
-                            <FormItem label="title" prop="title"
+                            <FormItem :label="$t('title')" prop="title"
                                       :rules="{required:true,message:'title is required!',trigger: 'blur'}">
                                 <Input v-model="formData.title" placeholder="the title of this article"></Input>
                             </FormItem>
@@ -13,7 +13,7 @@
                     </Row>
                     <Row>
                         <Col span="8">
-                            <FormItem label="category_id" prop="category_id"
+                            <FormItem :label="$t('category_id')" prop="category_id"
                                       :rules="{required:true,message:'category is required!',trigger: 'change'}">
                                 <Select v-model="formData.category_id" placeholder="choose a category for your article at best">
                                     <Option :value="cate.id.toString()" v-for="cate in categories">{{ cate.name }}</Option>
@@ -24,7 +24,7 @@
                     </Row>
                     <Row>
                         <Col span="20">
-                            <FormItem label="author" prop="author"
+                            <FormItem :label="$t('author')" prop="author"
                                       :rules="{required:true,message:'author is required!'}">
                                 <Input v-model="formData.author"
                                        placeholder="description for this article"></Input>
@@ -33,24 +33,21 @@
                     </Row>
                     <Row>
                         <Col span="20">
-                            <FormItem label="description" prop="description"
+                            <FormItem :label="$t('description')" prop="description"
                                       :rules="{required:true,message:'description is required!'}">
                                 <Input v-model="formData.description"
                                        placeholder="description for this article"></Input>
                             </FormItem>
                         </Col>
                     </Row>
-
                     <Row>
-                        <Col span="20">
-                            <FormItem label="content" prop="content"
+                        <Col span="50">
+                            <FormItem :label="$t('content')" prop="content"
                                       :rules="{required:true,message:'content is required!'}">
-                                <Input v-model="formData.content" type="textarea" :autosize="{minRows: 5,maxRows: 10}"
-                                       placeholder="the content..."></Input>
+                                <Markdown ref="markdown" v-model="formData.content" :options="editorConfig.options" :localCache="editorConfig.localCache"></Markdown>
                             </FormItem>
                         </Col>
                     </Row>
-
                     <Row>
                         <Col span="8">
                             <FormItem>
@@ -70,52 +67,19 @@
 <script>
 import {mapActions, mapState} from 'vuex'
 import {Process} from '../../util/co'
+import Markdown from '_c/markdown'
 
 export default {
   name: 'create',
   computed: {
     ...mapState('categories', ['articles'])
   },
+  components: {Markdown},
   data () {
     return {
       categories: [],
-      formData: {
-        title: '',
-        author: '',
-        category_id: '',
-        description: '',
-        content: ''
-      }
-      // ruleValidate: {
-      //   title: [
-      //     {required: true, message: 'Please write the title', trigger: 'change', type: 'string'}
-      //   ],
-      //   author: [
-      //     {
-      //       required: true,
-      //       type: 'string',
-      //       min: 1,
-      //       message: 'Choose at least one hobby',
-      //       trigger: 'change'
-      //     }
-      //   ],
-      //   category_id: [
-      //     {type: 'number', max: 99, message: 'Choose a category at best', trigger: 'change', required: true}
-      //   ],
-      //   content: [
-      //     {
-      //       required: true,
-      //       type: 'string',
-      //       min: 50,
-      //       message: 'write the content of this article at least 50 word',
-      //       trigger: 'change'
-      //     }
-      //   ],
-      //   description: [
-      //     {required: true, message: 'Please enter a description', trigger: 'blur'},
-      //     {type: 'string', min: 4, message: 'Introduce no more than 4 words', trigger: 'blur'}
-      //   ]
-      // }
+      formData: {title: '', author: '', category_id: '', description: '', content: ''},
+      editorConfig: {options: {}, localCache: false}
     }
   },
   methods: {
@@ -129,7 +93,7 @@ export default {
           Process(function* () {
             console.log(me.formData)
             yield me.storeArticle(me.formData)
-            me.$router.push({path: '/admin/articleList'})
+            me.$router.push({path: '/articles/articleList'})
           })
         } else {
           this.$Message.error('验证失败')
@@ -139,12 +103,11 @@ export default {
     handleReset (name) {
       this.$refs[name].resetFields()
     }
-
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       Process(function* () {
-        vm.categories = yield vm.getCate({})
+        vm.categories = yield vm.getCate()
       })
     })
   }

@@ -1,4 +1,4 @@
-import {getArticles, getCategories, storeArticle} from '../../service'
+import {getArticles, getCategories, storeArticle, getArticle, updateArticle} from '../../service'
 import co from 'co'
 
 export default {
@@ -24,9 +24,20 @@ export default {
         return yield storeArticle(data)
       })
     },
+    updateArticle (store, data) {
+      return co(function* () {
+        return yield updateArticle(data)
+      })
+    },
     getCate (store, data) {
       return co(function *() {
         let resp = yield getCategories(data)
+        return resp.data
+      })
+    },
+    getArticle (store, data) {
+      return co(function *() {
+        let resp = yield getArticle(data)
         return resp.data
       })
     }

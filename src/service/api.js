@@ -57,6 +57,14 @@ export const getArticles = (data) => {
   })
 }
 
+export const getArticle = (data) => {
+  return request({
+    url: '/adm/article',
+    data: data,
+    method: 'post'
+  })
+}
+
 export const deleteArticle = (data) => {
   return request({
     url: '/adm/deleteArticle?id=' + data.id,
@@ -68,6 +76,14 @@ export const deleteArticle = (data) => {
 export const storeArticle = (data) => {
   return request({
     url: '/adm/storeArticle',
+    data: data,
+    method: 'post'
+  })
+}
+
+export const updateArticle = (data) => {
+  return request({
+    url: '/adm/updateArticle',
     data: data,
     method: 'post'
   })

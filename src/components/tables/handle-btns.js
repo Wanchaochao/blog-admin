@@ -22,7 +22,35 @@ const btns = {
           props: {
             type: 'md-trash',
             size: 18,
-            color: '#000000'
+            color: '#ff6b60'
+          }
+        })
+      ])
+    ])
+  },
+  edit: (h, params, vm) => {
+    return h('Button', {
+      props: {
+        type: 'text',
+        size: 'small'
+      },
+      on: {
+        click: () => {
+          vm.$emit('on-edit', params, vm)
+        }
+      }
+    }, [
+      h('Button', {
+        props: {
+          type: 'text',
+          ghost: true
+        }
+      }, [
+        h('Icon', {
+          props: {
+            custom: 'iconfont icon-bianjisekuai',
+            size: 18,
+            color: '#5da15e'
           }
         })
       ])

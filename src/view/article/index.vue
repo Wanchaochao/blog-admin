@@ -4,10 +4,7 @@
             <Row type="flex" justify="space-between">
                 <Col>
                     <div class="search-con search-con-top">
-                        <a @click="createArticle()" class="search-btn" type="primary">
-                            <Icon type="search"/>
-                            添加文章
-                        </a>
+                        <Button type="success" to="/articles/createArticle">{{ $t('createArticle') }}</Button>
                     </div>
                 </Col>
                 <Col>
@@ -17,16 +14,17 @@
                                     :key="`search-col-${item.key}`">{{ item.title }}
                             </Option>
                         </Select>
-                        <Input @on-change="handleClear" clearable placeholder="输入关键字搜索" class="search-input"
+                        <Input @on-change="handleClear" clearable :placeholder="$t('enterKeyWords')"
+                               class="search-input"
                                v-model="searchValue"/>
                         <Button @click="handleSearch" class="search-btn" type="primary">
-                            <Icon type="search"/>&nbsp;&nbsp;搜索
+                            <Icon type="search"/>&nbsp;&nbsp;{{ $t('search') }}
                         </Button>
                     </div>
                 </Col>
             </Row>
             <tables ref="tables" editable search-place="top" v-model="articles" :columns="columns"
-                    @on-delete="handleDelete"/>
+                    @on-delete="handleDelete" @on-edit="handleEdit"/>
             <div style="margin: 10px;overflow: hidden">
                 <div style="float: right;">
                     <page :total="total" :current="current" @on-change="changePage" v-if="current > 0"></page>
@@ -52,16 +50,11 @@ export default {
         throw e
       })
     },
-    exportExcel () {
-      this.$refs.tables.exportCsv({
-        filename: `articles-${(new Date()).valueOf()}.csv`
-      })
-    },
-    createArticle () {
-      this.$router.push('/admin/createArticle')
-    },
     handleClear (e) {
       this.$refs.tables.handleClear(e)
+    },
+    handleEdit: (params, vm) => {
+      vm.$router.push({name: 'editArticle', query: {id: params.row.id}})
     },
     handleSearch () {
       let me = this
@@ -95,6 +88,21 @@ export default {
   components: {
     Tables
   },
+  computed: {
+    columns () {
+      return [
+        {title: this.$t('id'), key: 'id', sortable: true, width: 100, align: 'center'},
+        {title: this.$t('title'), key: 'title', sortable: false, searchable: true, align: 'center'},
+        {title: this.$t('category'), key: 'Category', sortable: false, searchable: true, align: 'center'},
+        {title: this.$t('author'), key: 'author', sortable: false, searchable: true, align: 'center'},
+        {title: this.$t('description'), key: 'description', sortable: false, searchable: true, align: 'center'},
+        {title: this.$t('created_at'), key: 'created_at', sortable: true, searchable: true, align: 'center'},
+        {title: this.$t('updated_at'), key: 'updated_at', sortable: true, searchable: true, align: 'center'},
+        {title: this.$t('handle'), key: 'handle', options: ['delete', 'edit']
+        }
+      ]
+    }
+  },
   data () {
     return {
       articles: [],
@@ -102,38 +110,6 @@ export default {
       current: 0,
       searchKey: '',
       searchValue: '',
-      columns: [
-        {title: 'id', key: 'id', sortable: true},
-        {title: 'title', key: 'title', sortable: false, searchable: true},
-        {title: 'category', key: 'Category', sortable: false, searchable: true},
-        {title: 'author', key: 'author', sortable: false, searchable: true},
-        {title: 'description', key: 'description', sortable: false, searchable: true},
-        {title: 'created_at', key: 'created_at', sortable: true, searchable: true},
-        {title: 'updated_at', key: 'updated_at', sortable: true, searchable: true},
-        {
-          title: '操作',
-          key: 'handle',
-          options: ['delete'],
-          button: [
-            (h, params, vm) => {
-              return h('Poptip', {
-                props: {
-                  confirm: true,
-                  title: '确定要删除吗?'
-                },
-                on: {
-                  'on-click': () => {
-                    vm.$emit('on-delete', params)
-                    vm.$emit('input', params.tableData.filter((item, index) => {
-                      return index !== params.row.initRowIndex
-                    }))
-                  }
-                }
-              })
-            }
-          ]
-        }
-      ],
       tableData: []
     }
   },

@@ -1,5 +1,5 @@
 import Main from '@/view/main'
-
+import Vue from 'vue'
 /**
  * iview-admin中meta除了原生参数外可配置的参数:
  * meta: {
@@ -43,8 +43,8 @@ export default [
     ]
   },
   {
-    path: '/admin',
-    name: 'admin',
+    path: '/articles',
+    name: 'articles',
     meta: {
       icon: 'logo-buffer',
       title: '文章管理'
@@ -64,7 +64,6 @@ export default [
         path: 'createArticle',
         name: 'createArticle',
         meta: {
-          hideInMenu: true,
           title: '添加文章',
           notCache: true,
           icon: 'md-add'
@@ -80,86 +79,86 @@ export default [
           notCache: true,
           icon: 'md-edit'
         },
-        component: () => ''
+        component: () => import('@/view/article/edit')
       }
     ]
   },
-  {
-    path: '/components',
-    name: 'components',
-    meta: {
-      icon: 'logo-buffer',
-      title: '组件'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'directive_page',
-        name: 'directive_page',
-        meta: {
-          icon: 'ios-navigate',
-          title: '指令'
-        },
-        component: () => import('@/view/directive/directive.vue')
-      },
-      {
-        path: 'count_to_page',
-        name: 'count_to_page',
-        meta: {
-          icon: 'md-trending-up',
-          title: '数字渐变'
-        },
-        component: () => import('@/view/components/count-to/count-to.vue')
-      },
-      {
-        path: 'tables_page',
-        name: 'tables_page',
-        meta: {
-          icon: 'md-grid',
-          title: '多功能表格'
-        },
-        component: () => import('@/view/components/tables/tables.vue')
-      },
-      {
-        path: 'icons_page',
-        name: 'icons_page',
-        meta: {
-          icon: '_bear',
-          title: '自定义图标'
-        },
-        component: () => import('@/view/components/icons/icons.vue')
-      }
-    ]
-  },
-  {
-    path: '/multilevel',
-    name: 'multilevel',
-    meta: {
-      icon: 'md-menu',
-      title: '多级菜单'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'level_2_1',
-        name: 'level_2_1',
-        meta: {
-          icon: 'md-funnel',
-          title: '二级-1'
-        },
-        component: () => import('@/view/multilevel/level-2-1.vue')
-      },
-      {
-        path: 'level_2_3',
-        name: 'level_2_3',
-        meta: {
-          icon: 'md-funnel',
-          title: '二级-3'
-        },
-        component: () => import('@/view/multilevel/level-2-3.vue')
-      },
-    ]
-  },
+  // {
+  //   path: '/components',
+  //   name: 'components',
+  //   meta: {
+  //     icon: 'logo-buffer',
+  //     title: '组件'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'directive_page',
+  //       name: 'directive_page',
+  //       meta: {
+  //         icon: 'ios-navigate',
+  //         title: '指令'
+  //       },
+  //       component: () => import('@/view/directive/directive.vue')
+  //     },
+  //     {
+  //       path: 'count_to_page',
+  //       name: 'count_to_page',
+  //       meta: {
+  //         icon: 'md-trending-up',
+  //         title: '数字渐变'
+  //       },
+  //       component: () => import('@/view/components/count-to/count-to.vue')
+  //     },
+  //     {
+  //       path: 'tables_page',
+  //       name: 'tables_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '多功能表格'
+  //       },
+  //       component: () => import('@/view/components/tables/tables.vue')
+  //     },
+  //     {
+  //       path: 'icons_page',
+  //       name: 'icons_page',
+  //       meta: {
+  //         icon: '_bear',
+  //         title: '自定义图标'
+  //       },
+  //       component: () => import('@/view/components/icons/icons.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/multilevel',
+  //   name: 'multilevel',
+  //   meta: {
+  //     icon: 'md-menu',
+  //     title: '多级菜单'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'level_2_1',
+  //       name: 'level_2_1',
+  //       meta: {
+  //         icon: 'md-funnel',
+  //         title: '二级-1'
+  //       },
+  //       component: () => import('@/view/multilevel/level-2-1.vue')
+  //     },
+  //     {
+  //       path: 'level_2_3',
+  //       name: 'level_2_3',
+  //       meta: {
+  //         icon: 'md-funnel',
+  //         title: '二级-3'
+  //       },
+  //       component: () => import('@/view/multilevel/level-2-3.vue')
+  //     },
+  //   ]
+  // },
   {
     path: '/argu',
     name: 'argu',

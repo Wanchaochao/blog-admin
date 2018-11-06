@@ -40,13 +40,11 @@
                             </FormItem>
                         </Col>
                     </Row>
-
                     <Row>
-                        <Col span="20">
-                            <FormItem label="content" prop="content"
+                        <Col span="50">
+                            <FormItem :label="$t('content')" prop="content"
                                       :rules="{required:true,message:'content is required!'}">
-                                <Input v-model="formData.content" type="textarea" :autosize="{minRows: 5,maxRows: 10}"
-                                       placeholder="the content..."></Input>
+                                <Markdown ref="markdown" v-model="formData.content" :options="editorConfig.options" :localCache="editorConfig.localCache"></Markdown>
                             </FormItem>
                         </Col>
                     </Row>
@@ -66,8 +64,13 @@
 </template>
 
 <script>
+import {Process} from '../../util/co'
+import {mapActions} from 'vuex'
+import Markdown from '_c/markdown'
+
 export default {
   name: 'edit',
+  components: {Markdown},
   data () {
     return {
       categories: [],
@@ -77,18 +80,42 @@ export default {
         category_id: '',
         description: '',
         content: ''
+      },
+      editorConfig: {
+        options: {},
+        localCache: false
       }
     }
   },
   methods: {
-
-  },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      Process(function* () {
-        vm.categories = yield vm.getCate()
-        vm.article = yield vm.getArticle()
+    ...mapActions('articles', ['getCate', 'getArticle', 'updateArticle']),
+    handleSubmit (name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          // this.$Message.success('验证通过')
+          // 验证通过,提交表单
+          let me = this
+          Process(function* () {
+            console.log(me.formData)
+            let resp = yield me.updateArticle(me.formData)
+            console.log(resp)
+            me.$Message.success('更新成功')
+          })
+        } else {
+          this.$Message.error('验证失败')
+        }
       })
+    },
+    handleReset (name) {
+      this.$refs[name].resetFields()
+    }
+  },
+  mounted () {
+    let me = this, post = {id: me.$route.query.id}
+    Process(function* () {
+      me.categories = yield me.getCate()
+      me.formData = yield me.getArticle(post)
+      me.$refs.markdown.setContent(me.formData.content)
     })
   }
 }

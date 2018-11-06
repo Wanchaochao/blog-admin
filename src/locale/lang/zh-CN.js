@@ -16,5 +16,22 @@ export default {
   directive_page: '指令',
   level_1: 'level-1',
   level_2: 'level-2',
-  level_2_1: 'level-2-1'
+  level_2_1: 'level-2-1',
+  createArticle: '创建文章',
+  title: '标题',
+  category_id: '分类编号',
+  author: '作者',
+  description: '描述',
+  content: '内容',
+  articleList: '文章列表',
+  login: '登录',
+  home: '首页',
+  articles: '文章管理',
+  search: '搜索',
+  enterKeyWords: '请输入关键字',
+  handle: '操作',
+  id: '编号',
+  category: '分类',
+  created_at: '创建时间',
+  updated_at: '更新时间'
 }
