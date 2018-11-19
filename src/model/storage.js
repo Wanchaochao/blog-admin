@@ -11,12 +11,12 @@ class Storage {
   setUser (data) {
     store.commit('user/setUserInfo', data)
     if (data !== {}) {
-      localStorage.setItem('__user', JSON.stringify(data))
+      sessionStorage.setItem('__user', JSON.stringify(data))
     }
   }
 
   getUser () {
-    let user = localStorage.getItem('__user')
+    let user = sessionStorage.getItem('__user')
     return user ? JSON.parse(user) : {}
   }
 }
