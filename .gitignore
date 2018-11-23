@@ -24,3 +24,4 @@ yarn-error.log*
 *.sw*
 
 build/env.js
+oss_sync.js
