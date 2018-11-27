@@ -1,5 +1,10 @@
 ### vue + iview 后台管理系统
-##### 目前正在开发中...
+
+<p align="center">
+	<a href="https:www.littlebug.vip">
+		<img src="http://littlebug.oss-cn-beijing.aliyuncs.com/www.littlebug.vip/favicon.ico" width="75">
+	</a>
+</p>
 
 > A Vue.js project
 
