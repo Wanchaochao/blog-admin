@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const AliOssPlugin = require('webpack-oss')
 
 const resolve = dir => {
   return path.join(__dirname, dir)
@@ -36,5 +37,31 @@ module.exports = {
       .set('_conf', resolve('config'))
   },
   // 打包时不生成.map文件
-  productionSourceMap: false
+  productionSourceMap: false,
+
+  configureWebpack: config => {
+    const plugins = []
+    // 上传文件到oss
+    if (process.env.ACCESS_KEY_ID || process.env.ACCESS_KEY_SECRET || process.env.REGION || process.env.BUCKET || process.env.PREFIX) {
+      plugins.push(
+        new AliOssPlugin({
+          accessKeyId: process.env.ACCESS_KEY_ID,
+          accessKeySecret: process.env.ACCESS_KEY_SECRET,
+          region: process.env.REGION,
+          bucket: process.env.BUCKET,
+          prefix: process.env.PREFIX,
+          exclude: /.*\.html$/,
+          enableLog: true,
+          ignoreError: false,
+          deleteMode: false,
+          deleteAll: false
+        })
+      )
+    }
+    config.plugins = [
+      ...config.plugins,
+      ...plugins
+    ]
+  }
+
 }
