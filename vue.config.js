@@ -17,7 +17,7 @@ fs.writeFileSync(path.join(__dirname, './config/env.js'), `export default '${env
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
 const BASE_URL = env === 'production' ? 'https://littlebug.oss-cn-beijing.aliyuncs.com/admin.littlebug/' : '/'
-const target = env === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8083/'
+const target = env === 'production' ? 'http://api.littlebug.vip/' : 'http://localhost:8081/'
 // const target = 'http://api.littlebug.vip/'
 module.exports = {
   devServer: {

@@ -96,9 +96,7 @@ export default {
           // 验证通过,提交表单
           let me = this
           Process(function* () {
-            console.log(me.formData)
-            let resp = yield me.updateArticle(me.formData)
-            console.log(resp)
+            yield me.updateArticle(me.formData)
             me.$Message.success('更新成功')
           })
         } else {
@@ -114,7 +112,10 @@ export default {
     let me = this, post = {id: me.$route.query.id}
     Process(function* () {
       me.categories = yield me.getCate()
-      me.formData = yield me.getArticle(post)
+      let res = yield me.getArticle(post)
+      delete res.updated_at
+      delete res.created_at
+      me.formData = res
       me.$refs.markdown.setContent(me.formData.content)
     })
   }
