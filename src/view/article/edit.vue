@@ -14,9 +14,9 @@
                     <Row>
                         <Col span="8">
                             <FormItem label="category_id" prop="category_id"
-                                      :rules="{required:true,message:'category is required!',trigger: 'change'}">
+                                      :rules="{required:true,message:'category is required!',trigger: 'change', type: 'number'}">
                                 <Select v-model="formData.category_id" placeholder="choose a category for your article at best">
-                                    <Option :value="cate.id.toString()" v-for="cate in categories">{{ cate.name }}</Option>
+                                    <Option :value="cate.id" v-for="cate in categories">{{ cate.name }}</Option>
                                 </Select>
                             </FormItem>
 
@@ -77,7 +77,7 @@ export default {
       formData: {
         title: '',
         author: '',
-        category_id: '',
+        category_id: 0,
         description: '',
         content: ''
       },
@@ -90,6 +90,7 @@ export default {
   methods: {
     ...mapActions('articles', ['getCate', 'getArticle', 'updateArticle']),
     handleSubmit (name) {
+      console.log(this.formData)
       this.$refs[name].validate((valid) => {
         if (valid) {
           // this.$Message.success('验证通过')
@@ -109,7 +110,8 @@ export default {
     }
   },
   mounted () {
-    let me = this, post = {id: me.$route.query.id}
+    let me = this
+    let post = {id: parseInt(this.$route.query.id)}
     Process(function* () {
       me.categories = yield me.getCate()
       let res = yield me.getArticle(post)

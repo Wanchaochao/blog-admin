@@ -14,9 +14,9 @@
                     <Row>
                         <Col span="8">
                             <FormItem :label="$t('category_id')" prop="category_id"
-                                      :rules="{required:true,message:'category is required!',trigger: 'change'}">
+                                      :rules="{required:true,message:'category is required!',trigger: 'change', type: 'number'}">
                                 <Select v-model="formData.category_id" placeholder="choose a category for your article at best">
-                                    <Option :value="cate.id.toString()" v-for="cate in categories">{{ cate.name }}</Option>
+                                    <Option :value="cate.id" v-for="cate in categories">{{ cate.name }}</Option>
                                 </Select>
                             </FormItem>
 
@@ -78,7 +78,7 @@ export default {
   data () {
     return {
       categories: [],
-      formData: {title: '', author: '', category_id: '', description: '', content: ''},
+      formData: {title: '', author: '', category_id: 0, description: '', content: ''},
       editorConfig: {options: {}, localCache: false}
     }
   },
@@ -91,8 +91,10 @@ export default {
           // 验证通过,提交表单
           let me = this
           Process(function* () {
-            console.log(me.formData)
-            yield me.storeArticle(me.formData)
+            yield me.storeArticle({
+              ...me.formData,
+              category_id: parseInt(me.formData.category_id)
+            })
             me.$router.push({path: '/articles/articleList'})
           })
         } else {
