@@ -1,5 +1,9 @@
 ### vue + iview 后台管理系统
 
+[![stable](//https://img.shields.io/badge/Vue-2.5.10-green.svg)](https://github.com/vuejs/vue)
+[![stable](//https://img.shields.io/badge/iview-%5E3.0.0-blue.svg)](https://github.com/iview/iview)
+[![stable](//https://img.shields.io/badge/vue--router-%5E3.0.1-blue.svg)](https://github.com/vuejs/vue-router)
+
 <p align="center">
 	<a href="https:www.littlebug.vip">
 		<img src="http://littlebug.oss-cn-beijing.aliyuncs.com/www.littlebug.vip/favicon.ico" width="75">
