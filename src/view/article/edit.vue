@@ -97,6 +97,7 @@ export default {
           // 验证通过,提交表单
           let me = this
           Process(function* () {
+            me.formData.category_id = parseInt(me.formData.category_id)
             yield me.updateArticle(me.formData)
             me.$Message.success('更新成功')
           })

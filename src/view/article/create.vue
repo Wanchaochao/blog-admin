@@ -91,10 +91,8 @@ export default {
           // 验证通过,提交表单
           let me = this
           Process(function* () {
-            yield me.storeArticle({
-              ...me.formData,
-              category_id: parseInt(me.formData.category_id)
-            })
+            me.formData.category_id = parseInt(me.formData.category_id)
+            yield me.storeArticle(me.formData)
             me.$router.push({path: '/articles/articleList'})
           })
         } else {
