@@ -5,7 +5,8 @@ import {ConfigModel} from '../model/config'
 import {StorageModel} from '../model/storage'
 import url from '../../config/url'
 
-axios.defaults.baseURL = url
+// axios.defaults.baseURL = url
+// console.log('baseUrl:::', url)
 
 const request = (param) => {
   return new Promise((resolve, reject) => {
