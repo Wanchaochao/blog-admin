@@ -49,7 +49,7 @@
     "lint-staged": "^6.0.0",
     "mockjs": "^1.0.1-beta3",
     "vue-template-compiler": "^2.5.13",
-    "webpack-oss": "^2.0.5"
+    "webpack-oss": "^2.1.5"
   },
   "browserslist": [
     "> 1%",
