@@ -16,7 +16,7 @@
                     <Layout class="main-layout-con">
                         <Content class="content-wrapper">
                             <keep-alive :include="cacheList">
-                                <router-view/>
+                                <router-view style="max-height: 80vh; overflow: scroll;" />
                             </keep-alive>
                         </Content>
                     </Layout>
