@@ -25,7 +25,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/adm': { // 使用"/api"来代替"http://localhost:8081/"
-        target, // 源地址
+        target: 'http://api.littlebug.vip/', // 源地址
         changeOrigin: true // 改变源
       }
     }
