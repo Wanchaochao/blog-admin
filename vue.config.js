@@ -43,6 +43,7 @@ module.exports = {
     const plugins = []
     // 上传文件到oss
     if (process.env.ACCESS_KEY_ID || process.env.ACCESS_KEY_SECRET || process.env.REGION || process.env.BUCKET || process.env.PREFIX) {
+      console.log(process.env.ACCESS_KEY_ID)
       plugins.push(
         new AliOssPlugin({
           accessKeyId: process.env.ACCESS_KEY_ID,
