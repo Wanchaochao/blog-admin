@@ -5,6 +5,8 @@ import {ConfigModel} from '../model/config'
 import {StorageModel} from '../model/storage'
 import url from '../../config/url'
 
+axios.defaults.baseURL = url
+
 const request = (param) => {
   return new Promise((resolve, reject) => {
     // if mock
