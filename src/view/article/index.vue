@@ -66,15 +66,15 @@ export default {
       let me = this
       co(function* () {
         let res = yield getArticles(p)
-        me.total = parseInt(res.data.total)
-        me.current = parseInt(res.data.current)
+        me.total = parseInt(res.data.page.total)
+        me.current = parseInt(res.data.page.current)
         me.articles = res.data.list
       }).catch(e => {
         throw e
       })
     },
     changePage (page) {
-      this.getArticles({page: page})
+      this.getArticles({page})
     }
   },
   mounted () {
